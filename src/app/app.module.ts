@@ -7,12 +7,14 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { GameComponent } from './game/game.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    GameComponent
+    GameComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
