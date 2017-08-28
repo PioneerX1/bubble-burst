@@ -5,17 +5,11 @@
     <th>Name</th>
     <th>Highscore</th>
   </tr>
-  <tr>
-    <td>Joel</td>
-    <td>999</td>
+
+  <tr *ngFor="let score of scores | async">
+    <td>{{score.name}}</td>
+    <td>{{score.points}}</td>
   </tr>
-  <tr>
-    <td>Mara</td>
-    <td>777</td>
-  </tr>
-  <tr>
-    <td>Saul</td>
-    <td>666</td>
-  </tr>
+
   <br>
 </table>
