@@ -1,3 +1,11 @@
 #tableHeader{
   font-size: 20px;
 }
+
+th {
+  font-size: 30px;
+}
+
+td {
+  font-size: 20px;
+}
