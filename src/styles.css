@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .side-bar-custom {
   max-width: 175px;
+  opacity: .8;
   /*min-width: 150px;*/
 }
 
@@ -10,13 +11,23 @@
 
 .jumbotron {
   text-align: center;
+  opacity: .8;
 }
 
 .main-content-container {
   padding-left: 20px;
+  background-color: lightgrey;
 
 }
 
 .paragraph-text {
   font-size: 20px;
+}
+
+body {
+  background-image: url('http://static-33.sinclairstoryline.com/resources/media/387750f4-8485-43d2-8e9d-2a9bd004f941-large16x9_nasaposterskepler16bart.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: .9;
 }
