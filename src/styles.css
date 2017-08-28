@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+.side-bar-custom {
+  max-width: 175px;
+  /*min-width: 150px;*/
+}
+
+.container {
+  /*margin-left: 200px;*/
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.main-content-container {
+  padding-left: 20px;
+
+}
+
+.paragraph-text {
+  font-size: 20px;
+}
