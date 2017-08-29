@@ -13,3 +13,15 @@
 
   <br>
 </table>
+
+<hr>
+
+<h3>Add a New High Score</h3>
+<form>
+  <label>Name: </label>
+  <input #newScoreName type=text required>
+  <label>Score: </label>
+  <input #newScorePoints type=number required>
+  <button class="btn btn-success" (click)="submitNewScore(newScoreName.value, newScorePoints.value)">Add High Score</button>
+</form>
+<br>

@@ -15,4 +15,8 @@ export class ScoreService {
     return this.scores;
   }
 
+  addScore(newScore: Score) {
+    this.scores.push(newScore);
+  }
+
 }

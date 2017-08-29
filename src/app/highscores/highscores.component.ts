@@ -20,4 +20,9 @@ export class HighscoresComponent implements OnInit {
     this.scores = this.scoreService.getScores();
   }
 
+  submitNewScore(name, points) {
+    var newScore: Score = new Score(name, points);
+    this.scoreService.addScore(newScore);
+  }
+
 }
