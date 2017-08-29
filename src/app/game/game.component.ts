@@ -26,18 +26,18 @@ export class GameComponent implements AfterViewInit {
       y: 83,          // Y position
       width: 0,       // Width, gets calculated
       height: 0,      // Height, gets calculated
-      // columns: 15,    // Number of tile columns
-      // rows: 14,       // Number of tile rows
-      rows: 10,
-      columns: 10,
-      // tilewidth: 40,  // Visual width of a tile
-      // tileheight: 40, // Visual height of a tile
-      tilewidth: 80,
-      tileheight: 80,
-      // rowheight: 34,  // Height of a row
-      // radius: 20,     // Bubble collision radius
-      rowheight: 68,
-      radius: 40,
+      columns: 15,    // Number of tile columns
+      rows: 4,       // Number of tile rows: 14
+      // rows: 15,
+      // columns: 15,
+      tilewidth: 40,  // Visual width of a tile
+      tileheight: 40, // Visual height of a tile
+      // tilewidth: 80,
+      // tileheight: 80,
+      rowheight: 34,  // Height of a row
+      radius: 20,     // Bubble collision radius
+      // rowheight: 68,
+      // radius: 40,
       tiles: []       // The two-dimensional tile array
   };
 
@@ -93,8 +93,15 @@ export class GameComponent implements AfterViewInit {
   loadtotal = 0;
   preloaded = true;
 
+  // set to true when no tiles are left
+  winner=false;
+
+  // for test only
+  mainCounter:number = 0;
+
 
   @ViewChild("myCanvas") myCanvas;
+  @ViewChild("myNav") myNav;
 
   constructor() { }
 
@@ -127,7 +134,7 @@ export class GameComponent implements AfterViewInit {
     this.context.fillRect(0, 0, canvas.width, canvas.height);
 
     this.bubbleimage = new Image();
-    this.bubbleimage.src = "../assets/images/planets-sprite.png";
+    this.bubbleimage.src = "../assets/images/planets-sprite-sm.png";
 
     setTimeout(function(){
       this.context.drawImage(this.bubbleimage, 0, 100);
@@ -164,6 +171,10 @@ export class GameComponent implements AfterViewInit {
 
   // Main loop
     main(tframe) {
+        // for test only
+
+        this.mainCounter++;
+
         // Request animation frames
 
         window.requestAnimationFrame(this.main.bind(this));
@@ -387,6 +398,7 @@ export class GameComponent implements AfterViewInit {
                     this.setGameState(this.gamestates.ready);
                 } else {
                     // No tiles left, game over
+                    this.winner=true;
                     this.setGameState(this.gamestates.gameover);
                 }
             }
@@ -457,7 +469,7 @@ export class GameComponent implements AfterViewInit {
 
         // No clusters found
         this.turncounter++;
-        if (this.turncounter >= 5) {
+        if (this.turncounter >= 25) {
             // Add a row of bubbles
             this.addBubbles();
             this.turncounter = 0;
@@ -678,62 +690,74 @@ export class GameComponent implements AfterViewInit {
 
         // Draw text that is centered
         drawCenterText(text, x, y, width) {
-        let canvas = this.myCanvas.nativeElement;
+
             var textdim = this.context.measureText(text);
-            this.context.fillText(text, x + (canvas.width-textdim.width)/2, y);
+            this.context.fillText(text, x + (width-textdim.width)/2, y);
         }
 
         render() {
-        // Draw the frame around the game
-        this.drawFrame();
+          // Draw the frame around the game
+          this.drawFrame();
 
-        var yoffset =  this.level.tileheight/2;
+          var yoffset =  this.level.tileheight/2;
 
-        // Draw level background
-        this.context.fillStyle = "#8c8c8c";
-        this.context.fillRect(this.level.x - 4, this.level.y - 4, this.level.width + 8, this.level.height + 4 - yoffset);
+          // Draw level background
+          this.context.fillStyle = "#8c8c8c";
+          this.context.fillRect(this.level.x - 4, this.level.y - 4, this.level.width + 8, this.level.height + 4 - yoffset);
 
-        // Render tiles
-        this.renderTiles();
+          // Render tiles
+          this.renderTiles();
 
-        // Draw level bottom
-        this.context.fillStyle = "#656565";
-        this.context.fillRect(this.level.x - 4, this.level.y - 4 + this.level.height + 4 - yoffset, this.level.width + 8, 2*this.level.tileheight + 3);
+          // Draw level bottom
+          this.context.fillStyle = "#656565";
+          this.context.fillRect(this.level.x - 4, this.level.y - 4 + this.level.height + 4 - yoffset, this.level.width + 8, 2*this.level.tileheight + 3);
 
-        // Draw score
-        this.context.fillStyle = "#ffffff";
-        this.context.font = "18px Verdana";
-        var scorex = this.level.x + this.level.width - 150;
-        var scorey = this.level.y+this.level.height + this.level.tileheight - yoffset - 8;
-        this.drawCenterText("Score:", scorex, scorey, 150);
-        this.context.font = "24px Verdana";
-        this.drawCenterText(this.score, scorex, scorey+30, 150);
+          // Draw score
+          this.context.fillStyle = "#ffffff";
+          this.context.font = "18px Verdana";
+          var scorex = this.level.x + this.level.width - 150;
+          var scorey = this.level.y+this.level.height + this.level.tileheight - yoffset - 8;
+          this.drawCenterText("Score:", scorex, scorey, 150);
+          this.context.font = "24px Verdana";
+          this.drawCenterText(this.score, scorex, scorey+30, 150);
 
-        // Render cluster
-        if (this.showcluster) {
-            this.renderCluster(this.cluster, 255, 128, 128);
+          // Render cluster
+          if (this.showcluster) {
+              this.renderCluster(this.cluster, 255, 128, 128);
 
-            for (var i=0; i<this.floatingclusters.length; i++) {
-                var col = Math.floor(100 + 100 * i / this.floatingclusters.length);
-                this.renderCluster(this.floatingclusters[i], col, col, col);
-            }
-        }
+              for (var i=0; i<this.floatingclusters.length; i++) {
+                  var col = Math.floor(100 + 100 * i / this.floatingclusters.length);
+                  this.renderCluster(this.floatingclusters[i], col, col, col);
+              }
+          }
 
 
-        // Render player bubble
-        this.renderPlayer();
+          // Render player bubble
+          this.renderPlayer();
 
-        // Game Over overlay
-        if (this.gamestate == this.gamestates.gameover) {
+          // Game Over overlay
+          if (this.gamestate == this.gamestates.gameover) {
+            let winnerText = "";
             this.context.fillStyle = "rgba(0, 0, 0, 0.8)";
             this.context.fillRect(this.level.x - 4, this.level.y - 4, this.level.width + 8, this.level.height + 2 * this.level.tileheight + 8 - yoffset);
 
             this.context.fillStyle = "#ffffff";
             this.context.font = "24px Verdana";
-            this.drawCenterText("Game Over!", this.level.x, this.level.y + this.level.height / 2 + 10, this.level.width);
+            if(this.winner){
+              winnerText += "You won!"
+              this.openForm();
+            } else {
+              winnerText += "You lost!"
+            }
+            this.drawCenterText(winnerText, this.level.x, this.level.y + this.level.height / 2 + 10, this.level.width);
             this.drawCenterText("Click to start", this.level.x, this.level.y + this.level.height / 2 + 40, this.level.width);
-        }
-    }
+
+            setTimeout(function(){
+
+
+            }.bind(this), 100);
+          }
+      }
 
     // Draw a frame around the game
     drawFrame() {
@@ -750,7 +774,7 @@ export class GameComponent implements AfterViewInit {
         // Draw title
         this.context.fillStyle = "#ffffff";
         this.context.font = "24px Verdana";
-        this.context.fillText("Bubble Shooter Example - Rembound.com", 10, 37);
+        this.context.fillText("Destroyer of Worlds!", 10, 37);
 
         // Display fps
         this.context.fillStyle = "#ffffff";
@@ -865,8 +889,8 @@ export class GameComponent implements AfterViewInit {
                 return;
 
             // Draw the bubble sprite
-            // context.drawImage(bubbleimage, index * 40, 0, 40, 40, x, y, level.tilewidth, level.tileheight);
-            this.context.drawImage(this.bubbleimage, index * 80, 0, 80, 80, x, y, this.level.tilewidth, this.level.tileheight);
+            this.context.drawImage(this.bubbleimage, index * 40, 0, 40, 40, x, y, this.level.tilewidth, this.level.tileheight);
+            // this.context.drawImage(this.bubbleimage, index * 80, 0, 80, 80, x, y, this.level.tilewidth, this.level.tileheight);
         }
 
         // Start a new game
@@ -995,6 +1019,8 @@ export class GameComponent implements AfterViewInit {
         if (this.gamestate == this.gamestates.ready) {
             this.shootBubble();
         } else if (this.gamestate == this.gamestates.gameover) {
+
+
             this.newGame();
         }
     }
@@ -1038,6 +1064,19 @@ export class GameComponent implements AfterViewInit {
             x: Math.round((e.clientX - rect.left)/(rect.right - rect.left)*canvas.width),
             y: Math.round((e.clientY - rect.top)/(rect.bottom - rect.top)*canvas.height)
         };
+    }
+
+    openForm() {
+        let nav = this.myNav.nativeElement;
+        nav.style.width = "100%";
+    }
+
+    closeForm() {
+
+        let nav = this.myNav.nativeElement;
+        alert(nav);
+        alert("nav.style.width" + nav.style.width);
+        nav.style.width = "0";
     }
 
 }

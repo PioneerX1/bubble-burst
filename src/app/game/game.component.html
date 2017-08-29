@@ -4,4 +4,14 @@
   <br>
 </h2>
 
-<canvas  (mousemove)="onMouseMove($event)" (mousedown)="onMouseButton($event)" #myCanvas width="900" height="1000"></canvas>
+<canvas  (mousemove)="onMouseMove($event)" (mousedown)="onMouseButton($event)" #myCanvas width="628" height="628"></canvas>
+
+<div #myNav class="overlay" (click)="closeForm($event)">
+  <span #myClose class="closebtn" >&times;</span>
+  <div class="overlay-content">
+    <span>About</span>
+    <span>Services</span>
+    <span>Clients</span>
+    <span>Contact</span>
+  </div>
+</div>
