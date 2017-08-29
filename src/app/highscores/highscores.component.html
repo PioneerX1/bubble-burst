@@ -6,7 +6,7 @@
     <th>Highscore</th>
   </tr>
 
-  <tr *ngFor="let score of scores | async">
+  <tr *ngFor="let score of orderedScores">
     <td>{{score.name}}</td>
     <td>{{score.points}}</td>
   </tr>
