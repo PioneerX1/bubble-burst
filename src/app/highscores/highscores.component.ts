@@ -15,6 +15,7 @@ export class HighscoresComponent implements OnInit {
   scores;
   newScores: Score[] = [];
   orderedScores: Score[] = [];
+  displayScores: Score[] = [];
 
   constructor(private scoreService: ScoreService) { }
 
@@ -28,15 +29,14 @@ export class HighscoresComponent implements OnInit {
         return obj1.points - obj2.points;
       });
       this.orderedScores = this.orderedScores.reverse();
+      this.renderFinalTwentyScores();
     });
   }
 
-  // submitNewScore(name, points) {
-  //   var newScore: Score = new Score(name, points);
-  //   this.scoreService.addScore(newScore);
-  //   window.location.reload();
-  // }
-
-
+  renderFinalTwentyScores() {
+    for(let i = 0; i < 20; i++) {
+      this.displayScores[i] = this.orderedScores[i];
+    }
+  }
 
 }
