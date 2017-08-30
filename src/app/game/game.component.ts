@@ -20,9 +20,8 @@ export class GameComponent implements AfterViewInit {
 
   tframe = 0;
 
-  pause=false;
-  myReq;
-
+  formRejected=false;
+  formOpen = false;
   initialized = false;
 
   // Level
@@ -166,6 +165,7 @@ export class GameComponent implements AfterViewInit {
             this.player.nextbubble.y = this.player.y;
 
             // New game
+
             this.newGame();
 
             // Enter main loop
@@ -178,14 +178,18 @@ export class GameComponent implements AfterViewInit {
 
         // Request animation frames
 
-        if (this.pause) {
-          window.cancelAnimationFrame(this.myReq);
-        } else {
-          this.myReq=window.requestAnimationFrame(this.main.bind(this));
-        }
+        window.requestAnimationFrame(this.main.bind(this));
+        // test
+
 
         let canvas = this.myCanvas.nativeElement;
         this.context = canvas.getContext("2d");
+
+
+        if(this.winner && !this.formRejected && !this.formOpen) {
+          this.formOpen = true;
+          this.formTimer = setTimeout(function(){this.openForm();}.bind(this), 3000);
+        } // close form handled by click event in html
 
         if (!this.initialized) {
             // Preloader
@@ -756,12 +760,7 @@ export class GameComponent implements AfterViewInit {
             this.drawCenterText(winnerText, this.level.x, this.level.y + this.level.height / 2 + 10, this.level.width);
             this.drawCenterText("Click to start", this.level.x, this.level.y + this.level.height / 2 + 40, this.level.width);
 
-            if(this.winner && !this.formClosed) {
-              this.formTimer = setTimeout(function(){
-                this.openForm();
 
-              }.bind(this), 3000);
-            }
           }
       }
 
@@ -901,9 +900,13 @@ export class GameComponent implements AfterViewInit {
 
         // Start a new game
         newGame() {
+        if(this.winner && !this.formRejected) {
+          clearTimeout(this.formTimer);
+        }
 
         this.winner = false;
-        clearTimeout(this.formTimer);
+        this.formRejected = false;
+        this.formOpen = false;
 
 
             // Reset score
@@ -1080,19 +1083,16 @@ export class GameComponent implements AfterViewInit {
     }
 
     openForm() {
-        this.pause = true;
+
         document.getElementById("myNav").style.height = "100%";
-        this.formClosed = false;
 
     }
 
     closeForm(e) {
 
-
+        this.formRejected=true;
+        this.formOpen=false;
         document.getElementById("myNav").style.height = "0%";
-        this.pause = false;
-        this.formClosed = true;
-        this.main(0);
 
 
 
