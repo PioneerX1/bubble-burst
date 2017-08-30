@@ -22,6 +22,8 @@ export class GameComponent implements AfterViewInit {
   audio1 = new Audio('../assets/audio/choke1.mp3');
   audio2 = new Audio('../assets/audio/scary.wav');
   audio3 = new Audio('../assets/audio/explosion.wav');
+  audio4 = new Audio('../assets/audio/uglytechno.wav');
+  audio5 = new Audio('../assets/audio/hellyeah.wav');
 
   lastframe = 0;
   fpstime = 0;
@@ -1098,8 +1100,8 @@ export class GameComponent implements AfterViewInit {
 
     openForm() {
         document.getElementById("myNav").style.height = "100%";
-        this.audio1.play();
-        this.audio2.play();
+        this.audio4.play();
+        this.audio5.play();
     }
 
     closeForm(e) {
