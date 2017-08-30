@@ -1,10 +1,15 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 
+import { Score } from '../score.model';
+import { ScoreService } from '../score.service';
+
+
 
 @Component({
   selector: '[app-game]',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  providers: [ScoreService]
 })
 
 
@@ -103,7 +108,7 @@ export class GameComponent implements AfterViewInit {
   @ViewChild("myCanvas") myCanvas;
   @ViewChild("myNav") myNav;
 
-  constructor() { }
+  constructor(private scoreService: ScoreService) { }
 
   ngAfterViewInit() {
     let canvas = this.myCanvas.nativeElement;
@@ -1069,6 +1074,7 @@ export class GameComponent implements AfterViewInit {
     openForm() {
         let nav = this.myNav.nativeElement;
         nav.style.width = "100%";
+
     }
 
     closeForm() {
@@ -1077,6 +1083,11 @@ export class GameComponent implements AfterViewInit {
         alert(nav);
         alert("nav.style.width" + nav.style.width);
         nav.style.width = "0";
+    }
+
+    captureWinnerStats(name: string) {
+      let newScore: Score = new Score(name, this.score);
+      this.scoreService.addScore(newScore);
     }
 
 }

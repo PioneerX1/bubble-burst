@@ -13,5 +13,13 @@
     <span>Services</span>
     <span>Clients</span>
     <span>Contact</span>
+    <div class="winner-form">
+      <form>
+        <h2>Congratulations!</h2>
+        <h3>Enter Your Name to be Immortalized!</h3>
+        <input #winnerName>
+        <button class="btn btn-success" (click)="captureWinnerStats(winnerName.value)">Submit</button>
+      </form>
+    </div>
   </div>
 </div>
