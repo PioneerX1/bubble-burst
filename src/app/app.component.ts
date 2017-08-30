@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MarsPhotosService } from './mars-photos.service';
 
@@ -9,21 +9,41 @@ import { MarsPhotosService } from './mars-photos.service';
   providers: [ MarsPhotosService ]
 })
 export class AppComponent {
+
   photos: any[]=null;
-    noPhotos: boolean=false;
-    constructor(private marsRoverPhotos: MarsPhotosService) { }
+  noPhotos: boolean=false;
 
-    getRoverImages() {
-      this.noPhotos = false;
-      this.marsRoverPhotos.getImages().subscribe(response => {
-        if(response.json().photos.length > 0)
-      {
-        this.photos = response.json();
-      }
-      else {
-        this.noPhotos = true;
-      }
-      });
+  constructor(private marsRoverPhotos: MarsPhotosService) { }
+
+  ngOnInit() {
+    this.noPhotos = false;
+    this.marsRoverPhotos.getImages().subscribe(response => {
+      if(response.json().photos.length > 0)
+    {
+      this.photos = response.json();
     }
+    else {
+      this.noPhotos = true;
+    }
+    });
 
+  }
+
+
+  // photos: any[]=null;
+  //   noPhotos: boolean=false;
+  //   constructor(private marsRoverPhotos: MarsPhotosService) { }
+
+  //   getRoverImages() {
+  //   this.noPhotos = false;
+  //   this.marsRoverPhotos.getImages().subscribe(response => {
+  //     if(response.json().photos.length > 0)
+  //   {
+  //     this.photos = response.json();
+  //   }
+  //   else {
+  //     this.noPhotos = true;
+  //   }
+  //   });
+  // }
 }

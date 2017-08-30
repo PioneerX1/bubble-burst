@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MarsPhotosService } from '../mars-photos.service';
 
 
@@ -8,11 +8,25 @@ import { MarsPhotosService } from '../mars-photos.service';
   styleUrls: ['./carousel.component.css'],
   providers: [ MarsPhotosService]
 })
-export class CarouselComponent {
+export class CarouselComponent implements OnInit {
   @Input() childPhotos;
-  constructor(private marsPhotos: MarsPhotosService) { }
+  constructor(private marsRoverPhotos: MarsPhotosService) { }
+  photos: any[]=null;
+  noPhotos: boolean=false;
 
-  ngOnInit() {
+  ngOnInit(){
+    // getRoverImages() {
+    this.noPhotos = false;
+    this.marsRoverPhotos.getImages().subscribe(response => {
+      if(response.json().photos.length > 0)
+    {
+      this.photos = response.json();
+    }
+    else {
+      this.noPhotos = true;
+    }
+    });
+  // }
   }
 
 }
