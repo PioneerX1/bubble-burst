@@ -13,6 +13,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { GameComponent } from './game/game.component';
 import { AboutComponent } from './about/about.component';
 import { HighscoresComponent } from './highscores/highscores.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -27,7 +28,8 @@ export const firebaseConfig = {
     WelcomeComponent,
     GameComponent,
     AboutComponent,
-    HighscoresComponent
+    HighscoresComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

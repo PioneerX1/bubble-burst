@@ -8,14 +8,14 @@
 .container {
   /*margin-left: 200px;*/
 }
-
+/*
 .jumbotron {
   text-align: center;
   opacity: .8;
-}
+}*/
 
-.main-content-container {
-  padding-left: 20px;
+.main {
+  /*padding-left: 20px;*/
   background-color: lightgrey;
 }
 
