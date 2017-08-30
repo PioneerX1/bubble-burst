@@ -12,5 +12,10 @@ td {
   border-style: inset;
 }
 
-table {
+tr:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+tr:nth-child(even) {
+  background-color: skyblue;
 }
