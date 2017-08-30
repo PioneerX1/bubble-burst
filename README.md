@@ -32,6 +32,7 @@ https://bubble-burst-7169a.firebaseapp.com
 
 ###API Key for Firebase
 
+export const marsRoverKey = "YFcL2M7cMBQ8j1VRQTyCO1ejj1SDqgY3k2FJWdxc"
 export var masterFirebaseConfig = {
   apiKey: "AIzaSyDrUl4_IAzL_Xv3KGHo3wnir7x3RF_A8qo",
   authDomain: "bubble-burst-7169a.firebaseapp.com",
