@@ -17,7 +17,6 @@
 .main-content-container {
   padding-left: 20px;
   background-color: lightgrey;
-
 }
 
 .paragraph-text {
@@ -29,5 +28,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  
+}
+
+.winner-form-text {
+  color: skyblue;
 }

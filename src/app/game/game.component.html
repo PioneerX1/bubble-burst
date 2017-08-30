@@ -9,14 +9,10 @@
 <div #myNav class="overlay" (click)="closeForm($event)">
   <span #myClose class="closebtn" >&times;</span>
   <div class="overlay-content">
-    <span>About</span>
-    <span>Services</span>
-    <span>Clients</span>
-    <span>Contact</span>
     <div class="winner-form">
       <form>
-        <h2>Congratulations!</h2>
-        <h3>Enter Your Name to be Immortalized!</h3>
+        <h2 class="winner-form-text">Congratulations! Your Score is {{score}}</h2>
+        <h3 class="winner-form-text">Enter Your Name to be Immortalized!</h3>
         <input #winnerName>
         <button class="btn btn-success" (click)="captureWinnerStats(winnerName.value)">Submit</button>
       </form>

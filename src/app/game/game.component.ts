@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Score } from '../score.model';
 import { ScoreService } from '../score.service';
@@ -108,7 +109,7 @@ export class GameComponent implements AfterViewInit {
   @ViewChild("myCanvas") myCanvas;
   @ViewChild("myNav") myNav;
 
-  constructor(private scoreService: ScoreService) { }
+  constructor(private router: Router, private scoreService: ScoreService) { }
 
   ngAfterViewInit() {
     let canvas = this.myCanvas.nativeElement;
@@ -1080,14 +1081,15 @@ export class GameComponent implements AfterViewInit {
     closeForm() {
 
         let nav = this.myNav.nativeElement;
-        alert(nav);
-        alert("nav.style.width" + nav.style.width);
+        // alert(nav);
+        // alert("nav.style.width" + nav.style.width);
         nav.style.width = "0";
     }
 
     captureWinnerStats(name: string) {
       let newScore: Score = new Score(name, this.score);
       this.scoreService.addScore(newScore);
+      this.router.navigate(['highscores']);
     }
 
 }
