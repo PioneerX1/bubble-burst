@@ -1,10 +1,16 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Score } from '../score.model';
+import { ScoreService } from '../score.service';
+
 
 
 @Component({
   selector: '[app-game]',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  providers: [ScoreService]
 })
 
 
@@ -106,7 +112,7 @@ export class GameComponent implements AfterViewInit {
   @ViewChild("myCanvas") myCanvas;
 
 
-  constructor() { }
+  constructor(private router: Router, private scoreService: ScoreService) { }
 
   ngAfterViewInit() {
     let canvas = this.myCanvas.nativeElement;
@@ -1083,9 +1089,7 @@ export class GameComponent implements AfterViewInit {
     }
 
     openForm() {
-
         document.getElementById("myNav").style.height = "100%";
-
     }
 
     closeForm(e) {
@@ -1093,9 +1097,12 @@ export class GameComponent implements AfterViewInit {
         this.formRejected=true;
         this.formOpen=false;
         document.getElementById("myNav").style.height = "0%";
+    }
 
-
-
+    captureWinnerStats(name: string) {
+      let newScore: Score = new Score(name, this.score);
+      this.scoreService.addScore(newScore);
+      this.router.navigate(['highscores']);
     }
 
 }

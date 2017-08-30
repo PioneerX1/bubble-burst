@@ -31,11 +31,11 @@ export class HighscoresComponent implements OnInit {
     });
   }
 
-  submitNewScore(name, points) {
-    var newScore: Score = new Score(name, points);
-    this.scoreService.addScore(newScore);
-    window.location.reload();
-  }
+  // submitNewScore(name, points) {
+  //   var newScore: Score = new Score(name, points);
+  //   this.scoreService.addScore(newScore);
+  //   window.location.reload();
+  // }
 
 
 
