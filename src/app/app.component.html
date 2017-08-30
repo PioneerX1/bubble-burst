@@ -4,34 +4,35 @@
     <!-- <button (click)="getRoverImages()">View Images</button> -->
     <!-- <button (click)="saveRoverImages()">Save All Images</button> -->
   <!-- </form> -->
-  <div *ngIf="photos &amp;&amp; !noPhotos">
-    <app-carousel [childPhotos]="photos"></app-carousel>
-  </div>
-  <div *ngIf="noPhotos">
-      <h3>There were no photos taken on {{roverDate.value}} by the {{roverCamera.value}} camera.</h3>
-  </div>
-
-
 <div class="row">
-  <div class="col-xs-2">
-
-<div class="w3-sidebar w3-light-grey w3-bar-block side-bar-custom" style="width:15%">
-  <div class="container">
-  <h3><a routerLink="">Home</a></h3>
-  <h3><a routerLink="game">Play Game!</a></h3>
-  <h3><a routerLink="about">About</a></h3>
-  <h3><a routerLink="highscores">High Scores</a></h3>
-</div>
-</div>
-
-</div>
-<div class="col-xs-10 grid">
-
-
-
-<div class="main-content-container">
-<router-outlet></router-outlet>
+  <div class = "col-12-xs">
+    <div *ngIf="photos &amp;&amp; !noPhotos">
+      <app-carousel [childPhotos]="photos"></app-carousel>
+    </div>
+    <div *ngIf="noPhotos">
+        <h3>There were no photos taken on {{roverDate.value}} by the {{roverCamera.value}} camera.</h3>
+    </div>
+  </div>
 </div>
 
-</div>
+
+<div class="row bg-info">
+  <div class="col-xs-3">
+    <div>
+
+      <h3><a routerLink="">Home</a></h3>
+      <h3><a routerLink="game">Play Game!</a></h3>
+      <h3><a routerLink="about">About</a></h3>
+      <h3><a routerLink="highscores">High Scores</a></h3>
+    </div>
+  </div>
+
+
+<!-- <div class="col-xs-10 grid"> -->
+
+  <div class="col-xs-9 bg-info">
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
