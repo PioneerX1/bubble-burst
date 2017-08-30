@@ -19,6 +19,10 @@ export class GameComponent implements AfterViewInit {
   context:CanvasRenderingContext2D;
   bubbleimage;
 
+  audio1 = new Audio('../assets/audio/choke1.mp3');
+  audio2 = new Audio('../assets/audio/scary.wav');
+  audio3 = new Audio('../assets/audio/explosion.wav');
+
   lastframe = 0;
   fpstime = 0;
   framecount = 0;
@@ -323,6 +327,7 @@ export class GameComponent implements AfterViewInit {
             // Add cluster score
             this.score += this.cluster.length * 100;
 
+
             // Find floating clusters
             this.floatingclusters = this.findFloatingClusters();
 
@@ -366,6 +371,7 @@ export class GameComponent implements AfterViewInit {
             }
 
             // Drop bubbles
+            this.audio3.play();
             for (var i=0; i<this.floatingclusters.length; i++) {
                 for (var j=0; j<this.floatingclusters[i].length; j++) {
                     var tile = this.floatingclusters[i][j];
@@ -508,6 +514,8 @@ export class GameComponent implements AfterViewInit {
                 // Game over
                 this.nextBubble();
                 this.setGameState(this.gamestates.gameover);
+                this.audio1.play();
+                this.audio2.play();
                 return true;
             }
         }
@@ -1090,6 +1098,8 @@ export class GameComponent implements AfterViewInit {
 
     openForm() {
         document.getElementById("myNav").style.height = "100%";
+        this.audio1.play();
+        this.audio2.play();
     }
 
     closeForm(e) {
