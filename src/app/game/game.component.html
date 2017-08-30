@@ -6,8 +6,8 @@
 
 <canvas  (mousemove)="onMouseMove($event)" (mousedown)="onMouseButton($event)" #myCanvas width="628" height="628"></canvas>
 
-<div #myNav class="overlay" (click)="closeForm($event)">
-  <span #myClose class="closebtn" >&times;</span>
+<div id="myNav" class="overlay" >
+  <a id="myClose" class="closebtn" (mousedown)="closeForm($event)">&times;</a>
   <div class="overlay-content">
     <span>About</span>
     <span>Services</span>

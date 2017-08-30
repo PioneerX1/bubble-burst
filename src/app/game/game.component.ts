@@ -18,6 +18,11 @@ export class GameComponent implements AfterViewInit {
   framecount = 0;
   fps = 0;
 
+  tframe = 0;
+
+  pause=false;
+  myReq;
+
   initialized = false;
 
   // Level
@@ -96,12 +101,11 @@ export class GameComponent implements AfterViewInit {
   // set to true when no tiles are left
   winner=false;
 
-  // for test only
-  mainCounter:number = 0;
-
+  formClosed=false; // true when user closes form after winning game, resets with new game.
+  formTimer;
 
   @ViewChild("myCanvas") myCanvas;
-  @ViewChild("myNav") myNav;
+
 
   constructor() { }
 
@@ -171,13 +175,14 @@ export class GameComponent implements AfterViewInit {
 
   // Main loop
     main(tframe) {
-        // for test only
-
-        this.mainCounter++;
 
         // Request animation frames
 
-        window.requestAnimationFrame(this.main.bind(this));
+        if (this.pause) {
+          window.cancelAnimationFrame(this.myReq);
+        } else {
+          this.myReq=window.requestAnimationFrame(this.main.bind(this));
+        }
 
         let canvas = this.myCanvas.nativeElement;
         this.context = canvas.getContext("2d");
@@ -745,17 +750,18 @@ export class GameComponent implements AfterViewInit {
             this.context.font = "24px Verdana";
             if(this.winner){
               winnerText += "You won!"
-              this.openForm();
             } else {
               winnerText += "You lost!"
             }
             this.drawCenterText(winnerText, this.level.x, this.level.y + this.level.height / 2 + 10, this.level.width);
             this.drawCenterText("Click to start", this.level.x, this.level.y + this.level.height / 2 + 40, this.level.width);
 
-            setTimeout(function(){
+            if(this.winner && !this.formClosed) {
+              this.formTimer = setTimeout(function(){
+                this.openForm();
 
-
-            }.bind(this), 100);
+              }.bind(this), 3000);
+            }
           }
       }
 
@@ -895,6 +901,11 @@ export class GameComponent implements AfterViewInit {
 
         // Start a new game
         newGame() {
+
+        this.winner = false;
+        clearTimeout(this.formTimer);
+
+
             // Reset score
             this.score = 0;
 
@@ -1017,12 +1028,14 @@ export class GameComponent implements AfterViewInit {
         let pos = this.getMousePos(canvas, event);
 
         if (this.gamestate == this.gamestates.ready) {
+
             this.shootBubble();
         } else if (this.gamestate == this.gamestates.gameover) {
 
 
             this.newGame();
         }
+
     }
 
     private onMouseMove(event: MouseEvent): void {
@@ -1067,16 +1080,22 @@ export class GameComponent implements AfterViewInit {
     }
 
     openForm() {
-        let nav = this.myNav.nativeElement;
-        nav.style.width = "100%";
+        this.pause = true;
+        document.getElementById("myNav").style.height = "100%";
+        this.formClosed = false;
+
     }
 
-    closeForm() {
+    closeForm(e) {
 
-        let nav = this.myNav.nativeElement;
-        alert(nav);
-        alert("nav.style.width" + nav.style.width);
-        nav.style.width = "0";
+
+        document.getElementById("myNav").style.height = "0%";
+        this.pause = false;
+        this.formClosed = true;
+        this.main(0);
+
+
+
     }
 
 }
