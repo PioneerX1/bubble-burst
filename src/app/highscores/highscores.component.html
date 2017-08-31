@@ -1,16 +1,17 @@
 
-<table style="width:100%">
-  <caption id="tableHeader">Top 20 High Scores</caption>
-  <br>
-  <tr>
-    <th>Name</th>
-    <th>Highscore</th>
-  </tr>
-
-  <tr *ngFor="let score of displayScores">
-    <td>{{score.name}}</td>
-    <td>{{score.points}}</td>
-  </tr>
-
-  <br>
+<h2>Top 20 High Scores</h2>
+<table class="table table-striped">
+  <!-- <caption id="tableHeader">Top 20 High Scores</caption> -->
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Highscore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let score of displayScores">
+      <td>{{score.name}}</td>
+      <td>{{score.points}}</td>
+    </tr>
+  </tbody>
 </table>
