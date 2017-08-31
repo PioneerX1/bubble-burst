@@ -32,39 +32,39 @@ export class GameComponent implements AfterViewInit {
 
   // Level
   level = {
-        x: 4,           // X position
-        y: 83,          // Y position
-        width: 0,       // Width, gets calculated
-        height: 0,      // Height, gets calculated
-        columns: 15,    // Number of tile columns
-        rows: 14,       // Number of tile rows
-        tilewidth: 40,  // Visual width of a tile
-        tileheight: 40, // Visual height of a tile
-        rowheight: 34,  // Height of a row
-        radius: 20,     // Bubble collision radius
-        tiles: []       // The two-dimensional tile array
-    };
+    x: 4,           // X position
+    y: 83,          // Y position
+    width: 0,       // Width, gets calculated
+    height: 0,      // Height, gets calculated
+    columns: 15,    // Number of tile columns
+    rows: 14,       // Number of tile rows
+    tilewidth: 40,  // Visual width of a tile
+    tileheight: 40, // Visual height of a tile
+    rowheight: 34,  // Height of a row
+    radius: 20,     // Bubble collision radius
+    tiles: []       // The two-dimensional tile array
+  };
 
   // Player
   player = {
+    x: 0,
+    y: 0,
+    angle: 0,
+    tiletype: 0,
+    bubble: {
       x: 0,
       y: 0,
       angle: 0,
+      speed: 1000,
+      dropspeed: 900,
       tiletype: 0,
-      bubble: {
-                  x: 0,
-                  y: 0,
-                  angle: 0,
-                  speed: 1000,
-                  dropspeed: 900,
-                  tiletype: 0,
-                  visible: false
-              },
-      nextbubble: {
-                      x: 0,
-                      y: 0,
-                      tiletype: 0
-                  }
+      visible: false
+    },
+    nextbubble: {
+      x: 0,
+      y: 0,
+      tiletype: 0
+    }
   };
 
   // Neighbor offset table
@@ -115,14 +115,14 @@ export class GameComponent implements AfterViewInit {
 
     // Define a tile class
     var Tile = function(x, y, type, shift) {
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        this.removed = false;
-        this.shift = shift;
-        this.velocity = 0;
-        this.alpha = 1;
-        this.processed = false;
+      this.x = x;
+      this.y = y;
+      this.type = type;
+      this.removed = false;
+      this.shift = shift;
+      this.velocity = 0;
+      this.alpha = 1;
+      this.processed = false;
     };
 
 
@@ -137,11 +137,10 @@ export class GameComponent implements AfterViewInit {
     this.context.fillRect(0, 0, canvas.width, canvas.height);
 
     this.bubbleimage = new Image();
-    this.bubbleimage.src = "../assets/images/planets-sprite-sm.png";
+    this.bubbleimage.src = "../assets/images/planet-sprite-2.png";
 
     setTimeout(function(){
       this.context.drawImage(this.bubbleimage, 0, 100);
-
     }.bind(this), 10);
 
     for (var i=0; i<this.level.columns; i++) {
@@ -176,10 +175,7 @@ export class GameComponent implements AfterViewInit {
   // Main loop
     main(tframe) {
 
-      // for test
-        if (this.framecount % 6==0){
-          console.log(this.turncounter);
-        }
+      
 
         // Request animation frames
 
