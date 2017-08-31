@@ -32,24 +32,18 @@ export class GameComponent implements AfterViewInit {
 
   // Level
   level = {
-      x: 4,           // X position
-      y: 83,          // Y position
-      width: 0,       // Width, gets calculated
-      height: 0,      // Height, gets calculated
-      columns: 15,    // Number of tile columns
-      rows: 4,       // Number of tile rows: 14
-      // rows: 15,
-      // columns: 15,
-      tilewidth: 40,  // Visual width of a tile
-      tileheight: 40, // Visual height of a tile
-      // tilewidth: 80,
-      // tileheight: 80,
-      rowheight: 34,  // Height of a row
-      radius: 20,     // Bubble collision radius
-      // rowheight: 68,
-      // radius: 40,
-      tiles: []       // The two-dimensional tile array
-  };
+        x: 4,           // X position
+        y: 83,          // Y position
+        width: 0,       // Width, gets calculated
+        height: 0,      // Height, gets calculated
+        columns: 15,    // Number of tile columns
+        rows: 14,       // Number of tile rows
+        tilewidth: 40,  // Visual width of a tile
+        tileheight: 40, // Visual height of a tile
+        rowheight: 34,  // Height of a row
+        radius: 20,     // Bubble collision radius
+        tiles: []       // The two-dimensional tile array
+    };
 
   // Player
   player = {
@@ -181,6 +175,11 @@ export class GameComponent implements AfterViewInit {
 
   // Main loop
     main(tframe) {
+
+      // for test
+        if (this.framecount % 6==0){
+          console.log(this.turncounter);
+        }
 
         // Request animation frames
 
@@ -484,7 +483,7 @@ export class GameComponent implements AfterViewInit {
 
         // No clusters found
         this.turncounter++;
-        if (this.turncounter >= 25) {
+        if (this.turncounter >= 5) {
             // Add a row of bubbles
             this.addBubbles();
             this.turncounter = 0;
@@ -689,6 +688,7 @@ export class GameComponent implements AfterViewInit {
         }
 
         updateFps(dt) {
+
             if (this.fpstime > 0.25) {
                 // Calculate fps
                 this.fps = Math.round(this.framecount / this.fpstime);
