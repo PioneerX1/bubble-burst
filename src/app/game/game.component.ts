@@ -24,6 +24,28 @@ export class GameComponent implements AfterViewInit {
   audio3 = new Audio('../assets/audio/explosion.wav');
   audio4 = new Audio('../assets/audio/uglytechno.wav');
   audio5 = new Audio('../assets/audio/hellyeah.wav');
+  audio6 = new Audio('../assets/audio/headshot.mp3');
+
+  audioE1 = new Audio('../assets/audio/explosion.wav');
+  audioE2 = new Audio('../assets/audio/cannon.wav');
+  audioE3 = new Audio('../assets/audio/filmfight.wav');
+  audioE4 = new Audio('../assets/audio/ahh.wav');
+  audioE5 = new Audio('../assets/audio/scream.wav');
+  audioE6 = new Audio('../assets/audio/bazooka.wav');
+  audioE7 = new Audio('../assets/audio/huge-explosion.flac');
+  audioE8 = new Audio('../assets/audio/voicebomb.mp3');
+  audioE9 = new Audio('../assets/audio/flanger.wav');
+  audioE10 = new Audio('../assets/audio/explosion2.mp3');
+  audioE11 = new Audio('../assets/audio/retro1.mp3');
+
+  audioArray = [this.audioE1, this.audioE2, this.audioE3, this.audioE4, this.audioE6, this.audioE7, this.audioE8, this.audioE9, this.audioE10, this.audioE11];
+
+  cycleAudio() {
+    let currentAudio = this.audioArray[Math.floor(Math.random()*this.audioArray.length)];
+    currentAudio.play();
+  };
+
+
 
   lastframe = 0;
   fpstime = 0;
@@ -47,7 +69,7 @@ export class GameComponent implements AfterViewInit {
     tilewidth: 40,  // Visual width of a tile
     tileheight: 40, // Visual height of a tile
     rowheight: 34,  // Height of a row
-    radius: 20,     // Bubble collision radius
+    radius: 18,     // Bubble collision radius
     tiles: []       // The two-dimensional tile array
   };
 
@@ -181,7 +203,7 @@ export class GameComponent implements AfterViewInit {
   // Main loop
     main(tframe) {
 
-      
+
 
         // Request animation frames
 
@@ -368,7 +390,12 @@ export class GameComponent implements AfterViewInit {
             }
 
             // Drop bubbles
-            this.audio3.play();
+            // this.audio3.play();
+            // if(this.cluster.length > 6) {
+            //   this.audio6.play();
+            // } else {
+            //   this.cycleAudio();
+            // }
             for (var i=0; i<this.floatingclusters.length; i++) {
                 for (var j=0; j<this.floatingclusters[i].length; j++) {
                     var tile = this.floatingclusters[i][j];
@@ -397,6 +424,13 @@ export class GameComponent implements AfterViewInit {
                 }
             }
 
+
+            // if((this.cluster.length + this.floatingclusters.length) > 6) {
+            //   this.audio6.play();
+            // } else {
+            //   this.cycleAudio();
+            // }
+
             if (!tilesleft) {
                 // Next bubble
                 this.nextBubble();
@@ -420,6 +454,13 @@ export class GameComponent implements AfterViewInit {
                     this.setGameState(this.gamestates.gameover);
                 }
             }
+        }
+
+
+        if((this.cluster.length > 3 && this.floatingclusters.length === 1) || (this.cluster.length > 5)) {
+          this.audio6.play();
+        } else {
+          this.cycleAudio();
         }
     }
 
@@ -796,7 +837,7 @@ export class GameComponent implements AfterViewInit {
         // Display fps
         this.context.fillStyle = "#ffffff";
         this.context.font = "12px Verdana";
-        this.context.fillText("Fps: " + this.fps, 13, 57);
+        // this.context.fillText("Fps: " + this.fps, 13, 57);
     }
 
     // Render tiles
