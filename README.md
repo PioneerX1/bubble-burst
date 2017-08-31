@@ -32,6 +32,9 @@ https://bubble-burst-7169a.firebaseapp.com
 
 ###API Key for Firebase
 
+* Touch and `src/app/api-keys.ts` file and add the following
+
+```
 export const marsRoverKey = "YFcL2M7cMBQ8j1VRQTyCO1ejj1SDqgY3k2FJWdxc"
 export var masterFirebaseConfig = {
   apiKey: "AIzaSyDrUl4_IAzL_Xv3KGHo3wnir7x3RF_A8qo",
@@ -41,3 +44,4 @@ export var masterFirebaseConfig = {
   storageBucket: "",
   messagingSenderId: "833237462114"
 }
+```
